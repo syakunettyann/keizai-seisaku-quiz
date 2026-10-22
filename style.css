@@ -407,3 +407,104 @@ footer.hint {
   font-size: 0.85rem;
   margin-bottom: 8px;
 }
+
+/* ===== 学習機能（履歴・ツリー・検索・モーダル等） ===== */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg);
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 14px;
+}
+.topbar h1 { flex: 1; text-align: center; font-size: 1rem; margin: 0; font-weight: 700; }
+.hbtn {
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  border-radius: 999px;
+  width: 38px;
+  height: 38px;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+.warn-banner {
+  background: var(--incorrect-bg);
+  color: var(--incorrect);
+  border: 1px solid var(--incorrect);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+.range-bar, .search-bar, .search-input-row, .count-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.muted-note { font-size: 0.8rem; color: var(--muted); }
+.tree-block { border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 8px; overflow: hidden; }
+.tree-head { display: flex; align-items: center; gap: 8px; padding: 10px 12px; cursor: pointer; background: var(--card-bg); }
+.tree-major { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 0.92rem; cursor: pointer; flex-shrink: 0; }
+.tree-major input, .tree-mid input { width: 18px; height: 18px; flex-shrink: 0; }
+.tree-mids { border-top: 1px solid var(--border); padding: 4px 12px 6px 24px; }
+.tree-mid { display: flex; align-items: center; gap: 8px; padding: 7px 0; font-size: 0.86rem; cursor: pointer; }
+.tname { white-space: nowrap; }
+.tcount { font-size: 0.75rem; color: var(--muted); white-space: nowrap; }
+.caret { color: var(--muted); font-size: 0.9rem; }
+.pbar { flex: 1; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; min-width: 30px; }
+.pbar > div { height: 100%; background: var(--primary); }
+.pbar.complete > div { background: var(--correct); }
+.count-row input[type=number], .search-input-row input[type=search] {
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 7px 10px;
+  font-size: 0.9rem;
+}
+.count-row input[type=number] { width: 90px; }
+.search-input-row input[type=search] { flex: 1; min-width: 0; }
+.actions.center { justify-content: center; }
+.btn-sm { padding: 5px 12px !important; font-size: 0.78rem !important; }
+.btn-large { padding: 13px 26px !important; font-size: 1rem !important; }
+.list-row { border-top: 1px solid var(--border); padding: 9px 4px; cursor: pointer; }
+.list-row .crumb { font-size: 0.72rem; color: var(--muted); }
+.list-row .ltext { font-size: 0.88rem; }
+.bm-row { display: flex; align-items: center; gap: 8px; cursor: default; }
+.bm-main { flex: 1; cursor: pointer; min-width: 0; }
+.stats { font-size: 0.88rem; margin-bottom: 8px; }
+.quiz-progress { margin-bottom: 10px; }
+.src-code { font-size: 0.75rem; color: var(--muted); margin-bottom: 8px; }
+.explain-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.edited-tag { font-size: 0.7rem; background: var(--star); color: #000; border-radius: 999px; padding: 1px 8px; margin-left: 6px; }
+.result-card { text-align: center; padding: 30px 18px; }
+.result-score { font-size: 1.4rem; font-weight: 700; margin-bottom: 18px; }
+.speaking { outline: 2px solid var(--star); border-radius: 6px; background: color-mix(in srgb, var(--star) 14%, transparent); }
+.q-text, .concept-box, .explain-item .body { cursor: pointer; }
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.55);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 100; padding: 16px;
+}
+.modal-card {
+  background: var(--card-bg); color: var(--text);
+  border-radius: 12px; padding: 18px; width: 100%; max-width: 560px;
+  max-height: 90vh; overflow-y: auto;
+}
+.modal-title { margin: 0 0 10px; font-size: 1rem; }
+.modal-msg { margin: 0 0 16px; font-size: 0.92rem; }
+.modal-actions { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.modal-card textarea {
+  width: 100%; border: 1px solid var(--border); border-radius: 8px;
+  background: var(--bg); color: var(--text); padding: 8px; font-size: 0.85rem;
+  font-family: inherit; line-height: 1.6;
+}
+.ed-label { display: block; font-size: 0.78rem; font-weight: 700; margin: 10px 0 4px; }
+.tree-mid .tname { min-width: 11.5em; }
