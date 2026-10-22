@@ -233,6 +233,7 @@
   function resetQuestionState() {
     state.selectedKey = null;
     state.answered = false;
+    state.unknown = false;
   }
   function startFrom(list, idx) {
     if (!list.length) return;
@@ -280,11 +281,19 @@
   }
 
   function submitAnswer() {
-    if (!state.selectedKey || state.answered) return;
+    if (!state.selectedKey) return;
+    recordAnswer(false);
+  }
+  function giveUp() {
+    recordAnswer(true);
+  }
+  function recordAnswer(unknown) {
+    if (state.answered) return;
     const q = currentQuestion();
     if (!q) return;
-    const ok = state.selectedKey === q.answer;
+    const ok = !unknown && state.selectedKey === q.answer;
     state.answered = true;
+    state.unknown = unknown;
     const h = state.history[q.id] || { c: 0, w: 0, last: null };
     if (ok) h.c++; else h.w++;
     h.last = ok;
@@ -295,7 +304,7 @@
       state.bookmarks.add(q.id);
       saveBookmarks();
     }
-    playSound(ok);
+    if (!unknown) playSound(ok);
     render(true);
   }
 
@@ -676,7 +685,7 @@
     if (state.answered) {
       const correct = state.selectedKey === q.answer;
       resultBanner = `<div class="result-banner ${correct ? "ok" : "ng"}">
-        ${correct ? "正解です！" : "不正解です。正解は" + q.answer + "です。"}
+        ${correct ? "正解です！" : (state.unknown ? "わからない（不正解として記録）。正解は" : "不正解です。正解は") + q.answer + "です。"}
       </div>
       <div class="src-code">出典: ${escapeHtml(q.yearLabel)}　第${q.no}問${q.sub ? "（設問" + q.sub + "）" : ""}（${escapeHtml(q.id)}）</div>`;
       explainHtml = renderExplainBox(q);
@@ -691,10 +700,8 @@
         <div class="q-text" id="q-text" ${speakAttr}>${nl2br(q.question)}</div>
         ${q.image ? `<img class="q-image" src="${q.image}" alt="第${q.no}問の図表">` : ""}
         <div class="choice-list">${choicesHtml}</div>
-        <div class="actions">
-          <button class="btn" ${!state.selectedKey || state.answered ? "disabled" : ""} onclick="App.submitAnswer()">解答する</button>
-        </div>
         ${resultBanner}
+
         ${explainHtml}
       </div>
     `;
@@ -723,6 +730,10 @@
         <div class="progress-bar"><div style="width:${pct}%"></div></div>
       </div>
       ${body}
+      ${q && !state.answered ? `<div class="answer-actions">
+        <button class="btn" ${state.selectedKey ? "" : "disabled"} onclick="App.submitAnswer()">解答する</button>
+        <button class="btn secondary" onclick="App.giveUp()">わからない</button>
+      </div>` : ""}
       ${nav}
     `;
   }
@@ -827,7 +838,7 @@
   }
 
   window.App = {
-    selectChoice, submitAnswer, goTo, toggleBookmark, startQuiz, backToSetup,
+    selectChoice, submitAnswer, giveUp, goTo, toggleBookmark, startQuiz, backToSetup,
     goHome, showBookmarks, removeBookmark, startBookmarks, startFromBookmark, retry,
     toggleExpand, toggleCat, toggleMid, selectAll, clearAll, setOpt, setPref, setCount,
     setSearchQuery, runSearch, searchKeydown, startSearch, startFromSearch,

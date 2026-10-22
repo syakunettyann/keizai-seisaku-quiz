@@ -508,3 +508,17 @@ footer.hint {
 }
 .ed-label { display: block; font-size: 0.78rem; font-weight: 700; margin: 10px 0 4px; }
 .tree-mid .tname { min-width: 11.5em; }
+
+.answer-actions,
+.bottom-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.answer-actions { margin-bottom: 10px; }
+
+.answer-actions button,
+.bottom-nav button {
+  width: 100%;
+}

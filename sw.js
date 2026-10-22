@@ -1,4 +1,4 @@
-const CACHE_NAME = "keizai-quiz-v2";
+const CACHE_NAME = "keizai-quiz-v3";
 const CORE = ["./", "index.html", "style.css", "app.js", "manifest.json", "icon.svg", "data/h28.js","data/h29.js","data/h30.js","data/r01.js","data/r02.js","data/r03.js","data/r04.js","data/r05.js","data/r05s.js","data/r06.js","data/r07.js","data/r08.js","data/registry.js"];
 
 self.addEventListener("install", (e) => {
